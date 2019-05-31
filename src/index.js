@@ -7,11 +7,11 @@ const Input = styled.input``;
 
 const Label = styled.label``;
 
-function Field({ label, type }) {
+function Field({ label, type, onChange, value }) {
   return (
     <p>
       <Label>{label}</Label>
-      <Input type={type} />
+      <Input type={type} onChange={onChange} value={value} />
     </p>
   );
 }
@@ -32,17 +32,38 @@ function useField({ defaultValue }) {
   };
 }
 
+const Pre = styled.pre``;
+
+const Code = styled.code``;
+
+function DataDisplay({ json }) {
+  return (
+    <Pre>
+      <Code>{JSON.stringify(json, null, 2)}</Code>
+    </Pre>
+  );
+}
+
 function LoginForm() {
   const email = useField({ defaultValue: "" });
   const password = useField({ defaultValue: "" });
   const checkbox = useField({ defaultValue: false });
   return (
-    <Form>
-      <Field label="Email" type="text" {...email.props} />
-      <Field label="Password" type="password" {...password.props} />
-      <Field label="Remember me" type="checkbox" {...checkbox.props} />
-      <Button type="submit">Submit</Button>
-    </Form>
+    <React.Fragment>
+      <Form>
+        <Field label="Email" type="text" {...email.props} />
+        <Field label="Password" type="password" {...password.props} />
+        <Field label="Remember me" type="checkbox" {...checkbox.props} />
+        <Button type="submit">Submit</Button>
+      </Form>
+      <DataDisplay
+        json={{
+          email,
+          password,
+          checkbox
+        }}
+      />
+    </React.Fragment>
   );
 }
 
