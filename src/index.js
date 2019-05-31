@@ -1,28 +1,42 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "normalize.css";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import { useField, useForm } from "react-jeff";
 import { createContainer } from "unstated-next";
 
-const Input = styled.input``;
+const Input = styled.input`
+  padding: 0.32rem;
+  line-height: 1.2;
+`;
 
-const Label = styled.label``;
+const Label = styled.label`
+  padding: 0.4rem 0;
+`;
 
-function Field({ label, type, onChange, value }) {
+const FieldContainer = styled.p`
+  display: flex;
+  flex-direction: ${props => props.flexDirection};
+  padding: 0 0.32rem;
+`;
+
+function Field({ label, type, onChange, value, inline }) {
   return (
-    <p>
+    <FieldContainer flexDirection={inline ? "row" : "column"}>
       <Label>{label}</Label>
       <Input
         type={type}
         onChange={e => onChange(e.currentTarget.value)}
         value={value}
       />
-    </p>
+    </FieldContainer>
   );
 }
 
-const Button = styled.button``;
+const Button = styled.button`
+  margin: 0.32rem;
+  line-height: 1.6;
+`;
 
 const Form = styled.form``;
 
@@ -63,7 +77,7 @@ function PasswordField({ field }) {
 function RememberMeField({ field }) {
   return (
     <React.Fragment>
-      <Field label="Remember me" type="checkbox" {...field.props} />
+      <Field label="Remember me" type="checkbox" {...field.props} inline />
       <DataDisplay json={{ checkbox: field }} />
     </React.Fragment>
   );
@@ -104,9 +118,21 @@ function useDebugMode(initialValue = false) {
 
 const DebugContainer = createContainer(useDebugMode);
 
+const GlobalStyle = createGlobalStyle`
+  html body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    letter-spacing: 0.16rem;
+  }
+  [type="checkbox"] {
+    height: 1rem;
+    margin: 0.52rem;
+  }
+`;
+
 function App() {
   return (
     <div>
+      <GlobalStyle />
       <DebugContainer.Provider>
         <LoginForm debug={false} />
       </DebugContainer.Provider>
