@@ -5,21 +5,9 @@ import styled from "styled-components";
 
 const Input = styled.input``;
 
-function TextInput() {
-  return <Input type="text" />;
-}
-
-function PasswordInput() {
-  return <Input type="password" />;
-}
-
-function Checkbox() {
-  return <Input type="checkbox" />;
-}
-
 const Label = styled.label``;
 
-function Field({ children, label, type }) {
+function Field({ label, type }) {
   return (
     <p>
       <Label>{label}</Label>
