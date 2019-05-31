@@ -40,12 +40,16 @@ const Button = styled.button`
 
 const Form = styled.form`
   margin: 0 auto;
-  width: 24%;
+  width: ${props => (props.debug ? "32%" : "24%")};
   border: 1px solid #eee;
   padding: 0.32rem;
 `;
 
-const Pre = styled.pre``;
+const Pre = styled.pre`
+  background-color: rgb(250, 250, 250);
+  padding: 0.8rem;
+  font-size: 0.88rem;
+`;
 
 const Code = styled.code``;
 
@@ -96,11 +100,8 @@ const Flex = styled.div`
 
 const Title = styled.h1``;
 
-function LoginForm({ debug }) {
-  const { setDebug } = DebugContainer.useContainer();
-  React.useEffect(() => {
-    setDebug(debug);
-  }, [setDebug, debug]);
+function LoginForm() {
+  const { debug, setDebug } = DebugContainer.useContainer();
   const email = useField({ defaultValue: "" });
   const password = useField({ defaultValue: "" });
   const rememberMe = useField({ defaultValue: false });
@@ -110,11 +111,18 @@ function LoginForm({ debug }) {
     <Flex flexDirection="column" alignItems="center">
       <Title as="h2">Login</Title>
       <Form
+        debug={debug}
         onSubmit={e => {
           e.preventDefault();
           form.props.onSubmit();
         }}
       >
+        <Field
+          inline
+          label="Debug"
+          type="checkbox"
+          onChange={e => setDebug(debug ? false : true)}
+        />
         <EmailField field={email} />
         <PasswordField field={password} />
         <RememberMeField field={rememberMe} />
@@ -148,7 +156,7 @@ function App() {
     <div>
       <GlobalStyle />
       <DebugContainer.Provider>
-        <LoginForm debug={false} />
+        <LoginForm />
       </DebugContainer.Provider>
     </div>
   );
