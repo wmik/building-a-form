@@ -32,7 +32,7 @@ function useField({ defaultValue }) {
   };
 }
 
-function App() {
+function LoginForm() {
   const email = useField({ defaultValue: "" });
   return (
     <Form>
@@ -46,6 +46,14 @@ function App() {
       <Field label="Remember me" type="checkbox" />
       <Button type="submit">Submit</Button>
     </Form>
+  );
+}
+
+function App() {
+  return (
+    <div>
+      <LoginForm />
+    </div>
   );
 }
 
