@@ -5,10 +5,14 @@ import styled from "styled-components";
 
 const Input = styled.input``;
 
+function TextInput() {
+  return <Input type="text" />;
+}
+
 function App() {
   return (
     <div>
-      <Input />
+      <TextInput />
     </div>
   );
 }
