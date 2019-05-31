@@ -36,12 +36,7 @@ function LoginForm() {
   const email = useField({ defaultValue: "" });
   return (
     <Form>
-      <Field
-        label="Email"
-        type="text"
-        value={email.props.value}
-        onChange={email.props.onChange}
-      />
+      <Field label="Email" type="text" {...email.props} />
       <Field label="Password" type="password" />
       <Field label="Remember me" type="checkbox" />
       <Button type="submit">Submit</Button>
