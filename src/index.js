@@ -38,7 +38,12 @@ const Button = styled.button`
   line-height: 1.6;
 `;
 
-const Form = styled.form``;
+const Form = styled.form`
+  margin: 0 auto;
+  width: 24%;
+  border: 1px solid #eee;
+  padding: 0.32rem;
+`;
 
 const Pre = styled.pre``;
 
@@ -83,6 +88,14 @@ function RememberMeField({ field }) {
   );
 }
 
+const Flex = styled.div`
+  display: flex;
+  flex-direction: ${props => props.flexDirection};
+  align-items: ${props => props.alignItems};
+`;
+
+const Title = styled.h1``;
+
 function LoginForm({ debug }) {
   const { setDebug } = DebugContainer.useContainer();
   React.useEffect(() => {
@@ -94,7 +107,8 @@ function LoginForm({ debug }) {
   const onSubmit = () => {};
   const form = useForm({ fields: [email, password, rememberMe], onSubmit });
   return (
-    <React.Fragment>
+    <Flex flexDirection="column" alignItems="center">
+      <Title as="h2">Login</Title>
       <Form
         onSubmit={e => {
           e.preventDefault();
@@ -107,7 +121,7 @@ function LoginForm({ debug }) {
         <Button type="submit">Submit</Button>
       </Form>
       <DataDisplay json={{ form }} />
-    </React.Fragment>
+    </Flex>
   );
 }
 
