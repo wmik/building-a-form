@@ -19,11 +19,11 @@ function Checkbox() {
 
 const Label = styled.label``;
 
-function Field({ children, label }) {
+function Field({ children, label, type }) {
   return (
     <p>
       <Label>{label}</Label>
-      {children}
+      <Input type={type} />
     </p>
   );
 }
@@ -31,15 +31,9 @@ function Field({ children, label }) {
 function App() {
   return (
     <div>
-      <Field label="Email">
-        <TextInput />
-      </Field>
-      <Field label="Password">
-        <PasswordInput />
-      </Field>
-      <Field label="Remember me">
-        <Checkbox />
-      </Field>
+      <Field label="Email" type="text" />
+      <Field label="Password" type="password" />
+      <Field label="Remember me" type="checkbox" />
     </div>
   );
 }
