@@ -28,12 +28,15 @@ function Field({ children, label, type }) {
   );
 }
 
+const Button = styled.button``;
+
 function App() {
   return (
     <div>
       <Field label="Email" type="text" />
       <Field label="Password" type="password" />
       <Field label="Remember me" type="checkbox" />
+      <Button type="submit">Submit</Button>
     </div>
   );
 }
