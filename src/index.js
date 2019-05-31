@@ -17,11 +17,16 @@ function Checkbox() {
   return <Input type="checkbox" />;
 }
 
+const Label = styled.label``;
+
 function App() {
   return (
     <div>
+      <Label>Email</Label>
       <TextInput />
+      <Label>Password</Label>
       <PasswordInput />
+      <Label>Remember me</Label>
       <Checkbox />
     </div>
   );
