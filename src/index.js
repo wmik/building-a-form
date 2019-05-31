@@ -34,11 +34,13 @@ function useField({ defaultValue }) {
 
 function LoginForm() {
   const email = useField({ defaultValue: "" });
+  const password = useField({ defaultValue: "" });
+  const checkbox = useField({ defaultValue: false });
   return (
     <Form>
       <Field label="Email" type="text" {...email.props} />
-      <Field label="Password" type="password" />
-      <Field label="Remember me" type="checkbox" />
+      <Field label="Password" type="password" {...password.props} />
+      <Field label="Remember me" type="checkbox" {...checkbox.props} />
       <Button type="submit">Submit</Button>
     </Form>
   );
