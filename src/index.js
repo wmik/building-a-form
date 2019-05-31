@@ -44,25 +44,45 @@ function DataDisplay({ json }) {
   );
 }
 
-function LoginForm() {
+function EmailField() {
   const email = useField({ defaultValue: "" });
+  return (
+    <React.Fragment>
+      <Field label="Email" type="text" {...email.props} />
+      <DataDisplay json={{ email }} />
+    </React.Fragment>
+  );
+}
+
+function PasswordField() {
   const password = useField({ defaultValue: "" });
+  return (
+    <React.Fragment>
+      <Field label="Password" type="password" {...password.props} />
+      <DataDisplay json={{ password }} />
+    </React.Fragment>
+  );
+}
+
+function RememberMeField() {
   const checkbox = useField({ defaultValue: false });
   return (
     <React.Fragment>
+      <Field label="Remember me" type="checkbox" {...checkbox.props} />
+      <DataDisplay json={{ checkbox }} />
+    </React.Fragment>
+  );
+}
+
+function LoginForm() {
+  return (
+    <React.Fragment>
       <Form>
-        <Field label="Email" type="text" {...email.props} />
-        <Field label="Password" type="password" {...password.props} />
-        <Field label="Remember me" type="checkbox" {...checkbox.props} />
+        <EmailField />
+        <PasswordField />
+        <RememberMeField />
         <Button type="submit">Submit</Button>
       </Form>
-      <DataDisplay
-        json={{
-          email,
-          password,
-          checkbox
-        }}
-      />
     </React.Fragment>
   );
 }
