@@ -10,3 +10,7 @@
    - Form component
 
 > Important: Learn to think in components. A component is the simplest unit of an application/website/e.t.c that can be reused, extended or configured independently. If it helps you could use lego blocks as a metaphor. Our goal is to use different independent lego blocks to build a larger lego "thing"
+
+3. Setup data flow
+   - Need to listen for `change` event in the input components
+   - Need to listen for `submit` event in the form
