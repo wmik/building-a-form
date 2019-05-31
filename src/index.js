@@ -74,15 +74,43 @@ function RememberMeField() {
   );
 }
 
+function useForm({ onSubmit }) {
+  const [submitting, setSubmitting] = React.useState(false);
+  const [submited, setSubmited] = React.useState(false);
+  const handleSubmit = () =>
+    Promise.resolve()
+      .then(() => setSubmitting(true))
+      .then(() => onSubmit())
+      .finally(() => {
+        setSubmitting(false);
+        setSubmited(true);
+      });
+  return {
+    submited,
+    submitting,
+    props: {
+      onSubmit: handleSubmit
+    }
+  };
+}
+
 function LoginForm() {
+  const onSubmit = () => {};
+  const form = useForm({ onSubmit });
   return (
     <React.Fragment>
-      <Form>
+      <Form
+        onSubmit={e => {
+          e.preventDefault();
+          form.props.onSubmit();
+        }}
+      >
         <EmailField />
         <PasswordField />
         <RememberMeField />
         <Button type="submit">Submit</Button>
       </Form>
+      <DataDisplay json={{ form }} />
     </React.Fragment>
   );
 }
