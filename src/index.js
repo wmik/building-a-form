@@ -20,10 +20,28 @@ const Button = styled.button``;
 
 const Form = styled.form``;
 
+function useField({ defaultValue }) {
+  const [value, setValue] = React.useState(defaultValue);
+  const onChange = e => setValue(e.currentTarget.value);
+  return {
+    value,
+    props: {
+      value,
+      onChange
+    }
+  };
+}
+
 function App() {
+  const email = useField({ defaultValue: "" });
   return (
     <Form>
-      <Field label="Email" type="text" />
+      <Field
+        label="Email"
+        type="text"
+        value={email.props.value}
+        onChange={email.props.onChange}
+      />
       <Field label="Password" type="password" />
       <Field label="Remember me" type="checkbox" />
       <Button type="submit">Submit</Button>
