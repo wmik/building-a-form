@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "normalize.css";
 import styled from "styled-components";
+import { useField, useForm } from "react-jeff";
 
 const Input = styled.input``;
 
@@ -11,7 +12,11 @@ function Field({ label, type, onChange, value }) {
   return (
     <p>
       <Label>{label}</Label>
-      <Input type={type} onChange={onChange} value={value} />
+      <Input
+        type={type}
+        onChange={e => onChange(e.currentTarget.value)}
+        value={value}
+      />
     </p>
   );
 }
@@ -19,18 +24,6 @@ function Field({ label, type, onChange, value }) {
 const Button = styled.button``;
 
 const Form = styled.form``;
-
-function useField({ defaultValue }) {
-  const [value, setValue] = React.useState(defaultValue);
-  const onChange = e => setValue(e.currentTarget.value);
-  return {
-    value,
-    props: {
-      value,
-      onChange
-    }
-  };
-}
 
 const Pre = styled.pre``;
 
@@ -44,59 +37,39 @@ function DataDisplay({ json }) {
   );
 }
 
-function EmailField() {
-  const email = useField({ defaultValue: "" });
+function EmailField({ field }) {
   return (
     <React.Fragment>
-      <Field label="Email" type="text" {...email.props} />
-      <DataDisplay json={{ email }} />
+      <Field label="Email" type="text" {...field.props} />
+      <DataDisplay json={{ email: field }} />
     </React.Fragment>
   );
 }
 
-function PasswordField() {
-  const password = useField({ defaultValue: "" });
+function PasswordField({ field }) {
   return (
     <React.Fragment>
-      <Field label="Password" type="password" {...password.props} />
-      <DataDisplay json={{ password }} />
+      <Field label="Password" type="password" {...field.props} />
+      <DataDisplay json={{ password: field }} />
     </React.Fragment>
   );
 }
 
-function RememberMeField() {
-  const checkbox = useField({ defaultValue: false });
+function RememberMeField({ field }) {
   return (
     <React.Fragment>
-      <Field label="Remember me" type="checkbox" {...checkbox.props} />
-      <DataDisplay json={{ checkbox }} />
+      <Field label="Remember me" type="checkbox" {...field.props} />
+      <DataDisplay json={{ checkbox: field }} />
     </React.Fragment>
   );
-}
-
-function useForm({ onSubmit }) {
-  const [submitting, setSubmitting] = React.useState(false);
-  const [submitted, setSubmitted] = React.useState(false);
-  const handleSubmit = () =>
-    Promise.resolve()
-      .then(() => setSubmitting(true))
-      .then(() => onSubmit())
-      .finally(() => {
-        setSubmitting(false);
-        setSubmitted(true);
-      });
-  return {
-    submitted,
-    submitting,
-    props: {
-      onSubmit: handleSubmit
-    }
-  };
 }
 
 function LoginForm() {
+  const email = useField({ defaultValue: "" });
+  const password = useField({ defaultValue: "" });
+  const rememberMe = useField({ defaultValue: false });
   const onSubmit = () => {};
-  const form = useForm({ onSubmit });
+  const form = useForm({ fields: [email, password, rememberMe], onSubmit });
   return (
     <React.Fragment>
       <Form
@@ -105,9 +78,9 @@ function LoginForm() {
           form.props.onSubmit();
         }}
       >
-        <EmailField />
-        <PasswordField />
-        <RememberMeField />
+        <EmailField field={email} />
+        <PasswordField field={password} />
+        <RememberMeField field={rememberMe} />
         <Button type="submit">Submit</Button>
       </Form>
       <DataDisplay json={{ form }} />
