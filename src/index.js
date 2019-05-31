@@ -9,10 +9,20 @@ function TextInput() {
   return <Input type="text" />;
 }
 
+function PasswordInput() {
+  return <Input type="password" />;
+}
+
+function Checkbox() {
+  return <Input type="checkbox" />;
+}
+
 function App() {
   return (
     <div>
       <TextInput />
+      <PasswordInput />
+      <Checkbox />
     </div>
   );
 }
