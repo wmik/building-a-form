@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "normalize.css";
 import styled from "styled-components";
 import { useField, useForm } from "react-jeff";
+import { createContainer } from "unstated-next";
 
 const Input = styled.input``;
 
@@ -30,11 +31,15 @@ const Pre = styled.pre``;
 const Code = styled.code``;
 
 function DataDisplay({ json }) {
-  return (
-    <Pre>
-      <Code>{JSON.stringify(json, null, 2)}</Code>
-    </Pre>
-  );
+  const { debug } = DebugContainer.useContainer();
+  if (debug) {
+    return (
+      <Pre>
+        <Code>{JSON.stringify(json, null, 2)}</Code>
+      </Pre>
+    );
+  }
+  return null;
 }
 
 function EmailField({ field }) {
@@ -64,7 +69,11 @@ function RememberMeField({ field }) {
   );
 }
 
-function LoginForm() {
+function LoginForm({ debug }) {
+  const { setDebug } = DebugContainer.useContainer();
+  React.useEffect(() => {
+    setDebug(debug);
+  }, [setDebug, debug]);
   const email = useField({ defaultValue: "" });
   const password = useField({ defaultValue: "" });
   const rememberMe = useField({ defaultValue: false });
@@ -88,10 +97,19 @@ function LoginForm() {
   );
 }
 
+function useDebugMode(initialValue = false) {
+  const [debug, setDebug] = React.useState(initialValue);
+  return { debug, setDebug };
+}
+
+const DebugContainer = createContainer(useDebugMode);
+
 function App() {
   return (
     <div>
-      <LoginForm />
+      <DebugContainer.Provider>
+        <LoginForm debug={false} />
+      </DebugContainer.Provider>
     </div>
   );
 }

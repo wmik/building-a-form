@@ -10,7 +10,8 @@
     "react-dom": "16.8.6",
     "react-jeff": "1.2.0",
     "react-scripts": "3.0.1",
-    "styled-components": "4.2.0"
+    "styled-components": "4.2.0",
+    "unstated-next": "1.1.0"
   },
   "devDependencies": {
     "typescript": "3.3.3"
