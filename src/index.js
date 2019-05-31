@@ -18,14 +18,16 @@ function Field({ label, type }) {
 
 const Button = styled.button``;
 
+const Form = styled.form``;
+
 function App() {
   return (
-    <div>
+    <Form>
       <Field label="Email" type="text" />
       <Field label="Password" type="password" />
       <Field label="Remember me" type="checkbox" />
       <Button type="submit">Submit</Button>
-    </div>
+    </Form>
   );
 }
 
