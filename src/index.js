@@ -119,13 +119,13 @@ function useDebugMode(initialValue = false) {
 const DebugContainer = createContainer(useDebugMode);
 
 const GlobalStyle = createGlobalStyle`
-  html body {
+  html, body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     letter-spacing: 0.16rem;
   }
   [type="checkbox"] {
     height: 1rem;
-    margin: 0.52rem;
+    margin: 0.64rem;
   }
 `;
 
