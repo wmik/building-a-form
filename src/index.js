@@ -76,17 +76,17 @@ function RememberMeField() {
 
 function useForm({ onSubmit }) {
   const [submitting, setSubmitting] = React.useState(false);
-  const [submited, setSubmited] = React.useState(false);
+  const [submitted, setSubmitted] = React.useState(false);
   const handleSubmit = () =>
     Promise.resolve()
       .then(() => setSubmitting(true))
       .then(() => onSubmit())
       .finally(() => {
         setSubmitting(false);
-        setSubmited(true);
+        setSubmitted(true);
       });
   return {
-    submited,
+    submitted,
     submitting,
     props: {
       onSubmit: handleSubmit
